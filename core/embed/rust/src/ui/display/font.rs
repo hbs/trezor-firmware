@@ -351,6 +351,24 @@ impl FontInfo {
         })
     }
 
+    /// Get the length of the longest prefix from a given `text` (breaking at
+    /// char boundaries) that will fit into the area `width` pixels wide.
+    pub fn longest_prefix_length(&'static self, width: i16, text: &str) -> usize {
+        let mut text_width = 0;
+
+        self.with_glyph_data(|data| {
+            for (chars, c) in text.chars().enumerate() {
+                let char_width = data.get_glyph(c).adv;
+                if text_width + char_width > width {
+                    // Another character cannot be fitted, we're done.
+                    return chars;
+                }
+                text_width += char_width;
+            }
+            text.len() // it fits in its entirety
+        })
+    }
+
     /// Get the length of the longest suffix from a given `text`
     /// that will fit into the area `width` pixels wide.
     pub fn longest_suffix(&'static self, width: i16, text: &str) -> usize {
