@@ -18,6 +18,7 @@ pub use header::{Header, HeaderMsg};
 pub use hint::Hint;
 #[cfg(feature = "translations")]
 pub use keyboard::{
+    bip39::Bip39Input,
     mnemonic::{MnemonicInput, MnemonicKeyboard, MnemonicKeyboardMsg},
     passphrase::{PassphraseKeyboard, PassphraseKeyboardMsg},
     pin::{PinKeyboard, PinKeyboardMsg},
