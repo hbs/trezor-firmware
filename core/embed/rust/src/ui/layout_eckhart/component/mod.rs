@@ -11,7 +11,7 @@ mod vertical_menu_page;
 mod welcome_screen;
 
 pub use action_bar::ActionBar;
-pub use button::{Button, ButtonMsg, ButtonStyle, ButtonStyleSheet, IconText};
+pub use button::{Button, ButtonContent, ButtonMsg, ButtonStyle, ButtonStyleSheet, IconText};
 pub use error::ErrorScreen;
 pub use formatted_screen::{FormattedScreen, FormattedScreenMsg};
 pub use header::{Header, HeaderMsg};
