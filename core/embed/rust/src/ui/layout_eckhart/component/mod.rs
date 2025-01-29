@@ -17,7 +17,10 @@ pub use formatted_screen::{FormattedScreen, FormattedScreenMsg};
 pub use header::{Header, HeaderMsg};
 pub use hint::Hint;
 #[cfg(feature = "translations")]
-pub use keyboard::pin::{PinKeyboard, PinKeyboardMsg};
+pub use keyboard::{
+    passphrase::{PassphraseKeyboard, PassphraseKeyboardMsg},
+    pin::{PinKeyboard, PinKeyboardMsg},
+};
 pub use result::{ResultFooter, ResultScreen, ResultStyle};
 pub use vertical_menu_page::VerticalMenuPage;
 pub use welcome_screen::WelcomeScreen;
