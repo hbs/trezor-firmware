@@ -24,7 +24,7 @@ use crate::{
 };
 
 use super::{
-    component::{ActionBar, Button, FormattedScreen, Header, Hint, PinKeyboard},
+    component::{ActionBar, Button, FormattedScreen, Header, Hint, MnemonicKeyboard, PinKeyboard},
     flow, fonts, theme, UIEckhart,
 };
 

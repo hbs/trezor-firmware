@@ -14,13 +14,34 @@ use crate::{
     },
 };
 
-use super::component::{FormattedScreen, FormattedScreenMsg, PinKeyboard, PinKeyboardMsg};
+use super::component::{
+    FormattedScreen, FormattedScreenMsg, MnemonicInput, MnemonicKeyboard, MnemonicKeyboardMsg,
+    PinKeyboard, PinKeyboardMsg,
+};
 
 impl ComponentMsgObj for PinKeyboard<'_> {
     fn msg_try_into_obj(&self, msg: Self::Msg) -> Result<Obj, Error> {
         match msg {
             PinKeyboardMsg::Confirmed => self.pin().try_into(),
             PinKeyboardMsg::Cancelled => Ok(CANCELLED.as_obj()),
+        }
+    }
+}
+
+impl<T> ComponentMsgObj for MnemonicKeyboard<T>
+where
+    T: MnemonicInput,
+{
+    fn msg_try_into_obj(&self, msg: Self::Msg) -> Result<Obj, Error> {
+        match msg {
+            MnemonicKeyboardMsg::Confirmed => {
+                if let Some(word) = self.mnemonic() {
+                    word.try_into()
+                } else {
+                    fatal_error!("Invalid mnemonic")
+                }
+            }
+            MnemonicKeyboardMsg::Previous => "".try_into(),
         }
     }
 }
