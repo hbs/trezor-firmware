@@ -3,7 +3,6 @@ use crate::{
     micropython::obj::Obj,
     ui::{
         component::{
-            base,
             text::paragraphs::{ParagraphSource, Paragraphs},
             Component, Timeout,
         },

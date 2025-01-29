@@ -269,13 +269,42 @@ async def handle_EndSession(msg: EndSession) -> Success:
     return Success()
 
 
+
+
 async def handle_Ping(msg: Ping) -> Success:
+
     if msg.button_protection:
         from trezor.enums import ButtonRequestType as B
         from trezor.ui.layouts import confirm_action
 
         await confirm_action("ping", TR.words__confirm, "ping", br_code=B.ProtectCall)
     return Success(message=msg.message)
+
+
+    # from trezor.ui.layouts.eckhart.reset import select_word
+    # seq = ["apple", "apple", "banana", "cherry"]
+    # await select_word(seq, 2, 3, 4)
+
+    # from trezor.ui.layouts.eckhart.reset import show_share_words
+    # seq = ["apple", "apple", "banana", "cherry"]
+    # await show_share_words(seq)
+
+    # from trezor.ui.layouts import request_pin_on_device
+    # return await request_pin_on_device(
+    #     prompt=TR.pin__enter, attempts_remaining=10, allow_cancel=True
+    # )
+
+    # from trezor.ui.layouts import request_passphrase_on_device
+    # passphrase = await request_passphrase_on_device(10)
+
+    # from trezor.ui.layouts.recovery import request_word
+    # word = await request_word(
+    #         1,
+    #         10,
+    #         is_slip39=True,
+    #         send_button_request=False,
+    #         prefill_word="",
+    #     )
 
 
 async def handle_DoPreauthorized(msg: DoPreauthorized) -> protobuf.MessageType:
