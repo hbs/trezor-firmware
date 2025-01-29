@@ -25,7 +25,8 @@ use crate::{
 
 use super::{
     component::{
-        ActionBar, Bip39Input, Button, FormattedScreen, Header, Hint, MnemonicKeyboard, PinKeyboard,
+        ActionBar, Bip39Input, Button, FormattedScreen, Header, Hint, MnemonicKeyboard,
+        PinKeyboard, Slip39Input,
     },
     flow, fonts, theme, UIEckhart,
 };
@@ -317,11 +318,17 @@ impl FirmwareUI for UIEckhart {
     }
 
     fn request_slip39(
-        _prompt: TString<'static>,
-        _prefill_word: TString<'static>,
-        _can_go_back: bool,
+        prompt: TString<'static>,
+        prefill_word: TString<'static>,
+        can_go_back: bool,
     ) -> Result<impl LayoutMaybeTrace, Error> {
-        Err::<RootComponent<Empty, ModelUI>, Error>(Error::ValueError(c"not implemented"))
+        let layout = RootComponent::new(MnemonicKeyboard::new(
+            prefill_word.map(Slip39Input::prefilled_word),
+            prompt,
+            can_go_back,
+        ));
+
+        Ok(layout)
     }
 
     fn request_number(

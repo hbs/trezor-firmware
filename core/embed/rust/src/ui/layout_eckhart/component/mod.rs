@@ -22,6 +22,7 @@ pub use keyboard::{
     mnemonic::{MnemonicInput, MnemonicKeyboard, MnemonicKeyboardMsg},
     passphrase::{PassphraseKeyboard, PassphraseKeyboardMsg},
     pin::{PinKeyboard, PinKeyboardMsg},
+    slip39::Slip39Input,
 };
 pub use result::{ResultFooter, ResultScreen, ResultStyle};
 pub use vertical_menu_page::VerticalMenuPage;
