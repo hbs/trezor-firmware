@@ -5,6 +5,7 @@ mod error;
 mod formatted_screen;
 mod header;
 mod hint;
+mod keyboard;
 mod result;
 mod vertical_menu_page;
 mod welcome_screen;
