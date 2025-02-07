@@ -168,8 +168,9 @@ class TrezorClient:
     @property
     def model(self) -> models.TrezorModel:
         f = self.features
-        model = models.by_name(f.model or "1")
-
+        model = models.by_internal_name(f.internal_model)
+        if model is None:
+            model = models.by_name(f.model or "1")
         if model is None:
             raise RuntimeError(
                 "Unsupported Trezor model"
