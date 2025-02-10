@@ -227,20 +227,12 @@ def test_failed_pin(session: Session):
     # Confirm Reset
     assert isinstance(ret, messages.ButtonRequest)
 
-    # client._raw_write(messages.ButtonAck())
-    # client.debug.press_yes()
-
-    # # Enter PIN for first time
-    # client.debug.input("654")
-    # ret = client.call_raw(messages.ButtonAck())
-
-    debug.press_yes()  # TODO test fails here on T3T1
-    ret = session.call_raw(messages.ButtonAck())
+    session._write(messages.ButtonAck())
+    debug.press_yes()
 
     # Enter PIN for first time
-    assert isinstance(ret, messages.ButtonRequest)
     debug.input("654")
-    ret = session.call_raw(messages.ButtonAck())
+    ret = session.call_raw(messages.ButtonAck()) # XXX stuck here
 
     # Re-enter PIN for TR
     if session.client.layout_type is LayoutType.Caesar:
