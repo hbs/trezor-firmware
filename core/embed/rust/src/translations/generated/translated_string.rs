@@ -1382,6 +1382,8 @@ pub enum TranslatedString {
     misc__enable_labeling = 973,  // "Enable labeling?"
     #[cfg(feature = "universal_fw")]
     ethereum__unknown_contract_address_short = 974,  // "Unknown contract address."
+    share_words__first_word = 975,  // "Write down the first word from the backup."
+    share_words__word_multiple_times = 976,  // "The word appears multiple times in the backup."
 }
 
 impl TranslatedString {
@@ -2760,6 +2762,8 @@ impl TranslatedString {
             Self::misc__enable_labeling => "Enable labeling?",
             #[cfg(feature = "universal_fw")]
             Self::ethereum__unknown_contract_address_short => "Unknown contract address.",
+            Self::share_words__first_word => "Write down the first word from the backup.",
+            Self::share_words__word_multiple_times => "The word appears multiple times in the backup.",
         }
     }
 
@@ -4137,6 +4141,8 @@ impl TranslatedString {
             Qstr::MP_QSTR_misc__enable_labeling => Some(Self::misc__enable_labeling),
             #[cfg(feature = "universal_fw")]
             Qstr::MP_QSTR_ethereum__unknown_contract_address_short => Some(Self::ethereum__unknown_contract_address_short),
+            Qstr::MP_QSTR_share_words__first_word => Some(Self::share_words__first_word),
+            Qstr::MP_QSTR_share_words__word_multiple_times => Some(Self::share_words__word_multiple_times),
             _ => None,
         }
     }

@@ -633,6 +633,8 @@ static void _librust_qstrs(void) {
   MP_QSTR_set_brightness;
   MP_QSTR_setting__adjust;
   MP_QSTR_setting__apply;
+  MP_QSTR_share_words__first_word;
+  MP_QSTR_share_words__word_multiple_times;
   MP_QSTR_share_words__words_in_order;
   MP_QSTR_share_words__wrote_down_all;
   MP_QSTR_show_address_details;
@@ -650,7 +652,7 @@ static void _librust_qstrs(void) {
   MP_QSTR_show_progress_coinjoin;
   MP_QSTR_show_remaining_shares;
   MP_QSTR_show_share_words;
-  MP_QSTR_show_share_words_delizia;
+  MP_QSTR_show_share_words_extended;
   MP_QSTR_show_simple;
   MP_QSTR_show_success;
   MP_QSTR_show_wait_text;

@@ -765,6 +765,8 @@
     "setting__apply": "Apply",
     "share_words__words_in_order": " words in order.",
     "share_words__wrote_down_all": "I wrote down all ",
+    "share_words__word_multiple_times": "The word appears multiple times in the backup.",
+    "share_words__first_word": "Write down the first word from the backup.",
     "sign_message__bytes_template": "{0} Bytes",
     "sign_message__confirm_address": "Signing address",
     "sign_message__confirm_message": "Confirm message",

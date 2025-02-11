@@ -761,6 +761,8 @@ class TR:
     send__you_are_contributing: str = "You are contributing:"
     setting__adjust: str = "Adjust"
     setting__apply: str = "Apply"
+    share_words__first_word: str = "Write down the first word from the backup."
+    share_words__word_multiple_times: str = "The word appears multiple times in the backup."
     share_words__words_in_order: str = " words in order."
     share_words__wrote_down_all: str = "I wrote down all "
     sign_message__bytes_template: str = "{0} Bytes"
