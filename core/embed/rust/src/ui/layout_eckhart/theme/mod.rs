@@ -252,6 +252,33 @@ pub const fn button_header() -> ButtonStyleSheet {
     }
 }
 
+pub const fn button_select_word() -> ButtonStyleSheet {
+    ButtonStyleSheet {
+        normal: &ButtonStyle {
+            font: fonts::FONT_SATOSHI_EXTRALIGHT_46,
+            text_color: GREY_EXTRA_LIGHT,
+            button_color: BG,
+            icon_color: GREY_EXTRA_LIGHT,
+            background_color: BG,
+        },
+        active: &ButtonStyle {
+            font: fonts::FONT_SATOSHI_EXTRALIGHT_46,
+            text_color: GREY_EXTRA_LIGHT,
+            button_color: BG,
+            icon_color: GREY_EXTRA_LIGHT,
+            background_color: BG,
+        },
+        // unused
+        disabled: &ButtonStyle {
+            font: fonts::FONT_SATOSHI_EXTRALIGHT_46,
+            text_color: BG,
+            button_color: BG,
+            icon_color: BG,
+            background_color: BG,
+        },
+    }
+}
+
 // Result  constants
 pub const RESULT_PADDING: i16 = 6;
 pub const RESULT_FOOTER_START: i16 = 171;
