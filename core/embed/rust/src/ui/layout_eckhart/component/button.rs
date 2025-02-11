@@ -37,6 +37,8 @@ pub struct Button {
 
 impl Button {
     pub const BASELINE_OFFSET: Offset = Offset::new(2, 6);
+    pub const MENU_Y_BASE_OFFSET: i16 = 28;
+    pub const MENU_LINE_SPACING: i16 = 7;
 
     pub const fn new(content: ButtonContent) -> Self {
         Self {
@@ -55,6 +57,13 @@ impl Button {
 
     pub const fn with_text(text: TString<'static>) -> Self {
         Self::new(ButtonContent::Text(text))
+    }
+
+    pub const fn with_menu_item(
+        title: TString<'static>,
+        subtitle: Option<TString<'static>>,
+    ) -> Self {
+        Self::new(ButtonContent::MenuItem(title, subtitle))
     }
 
     pub const fn with_icon(icon: Icon) -> Self {
@@ -240,6 +249,43 @@ impl Button {
                     alpha,
                 );
             }
+            ButtonContent::MenuItem(title, subtitle) => {
+                let y_offset =
+                    Offset::y(Self::MENU_Y_BASE_OFFSET + self.style().font.allcase_text_height());
+
+                let mut start_of_baseline =
+                    self.area.top_left() + Offset::x(Self::BASELINE_OFFSET.x) + y_offset;
+
+                title.map(|title| {
+                    shape::Text::new(start_of_baseline, title, style.font)
+                        .with_fg(style.text_color)
+                        .with_align(Alignment::Start)
+                        .with_alpha(alpha)
+                        .render(target);
+                });
+                // Render subtitle if available
+                if let Some(subtitle) = subtitle {
+                    let styles = theme::menu_item_subtitle();
+                    let style = match self.state {
+                        State::Initial | State::Released => styles.normal,
+                        State::Pressed => styles.active,
+                        State::Disabled => styles.disabled,
+                    };
+
+                    let y_offset = Offset::y(
+                        styles.active.font.allcase_text_height() + Self::MENU_LINE_SPACING,
+                    );
+
+                    start_of_baseline = start_of_baseline + y_offset;
+                    subtitle.map(|subtitle| {
+                        shape::Text::new(start_of_baseline, subtitle, styles.active.font)
+                            .with_fg(style.text_color)
+                            .with_align(Alignment::Start)
+                            .with_alpha(alpha)
+                            .render(target);
+                    });
+                }
+            }
         }
     }
 
@@ -376,6 +422,9 @@ impl crate::trace::Trace for Button {
                 t.string("text", content.text);
                 t.bool("icon", true);
             }
+            ButtonContent::MenuItem(title, _) => {
+                t.string("title", *title);
+            }
         }
     }
 }
@@ -392,6 +441,7 @@ enum State {
 pub enum ButtonContent {
     Empty,
     Text(TString<'static>),
+    MenuItem(TString<'static>, Option<TString<'static>>),
     Icon(Icon),
     IconAndText(IconText),
 }
