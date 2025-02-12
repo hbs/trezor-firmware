@@ -609,6 +609,7 @@
     "reboot_to_bootloader__restart": "Trezor se restartuje v režimu bootloaderu.",
     "reboot_to_bootloader__title": "Spustit bootloader",
     "reboot_to_bootloader__version_by_template": "Verze firmwaru {0}\nz {1}",
+    "recovery__cancel_dry_run": "Zrušit kontrolu zálohy",
     "recovery__check_dry_run": "Zkontrolovat zálohu?",
     "recovery__cursor_will_change": "Poloha kurzoru se mezi jednotlivými položkami změní pro zvýšení bezpečnosti.",
     "recovery__dry_run_backup_not_on_this_device": "Záloha peněženky není na tomto zařízení",

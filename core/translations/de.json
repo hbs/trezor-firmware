@@ -609,6 +609,7 @@
     "reboot_to_bootloader__restart": "Trezor wird im Bootloader-Modus neu gestartet.",
     "reboot_to_bootloader__title": "Zum bootloader",
     "reboot_to_bootloader__version_by_template": "Firmware-Version {0}\nvon {1}",
+    "recovery__cancel_dry_run": "Backup-Überprüfung abbrechen",
     "recovery__check_dry_run": "Backup überprüfen?",
     "recovery__cursor_will_change": "Die Cursorposition ändert sich für mehr Sicherheit zwischen den Einträgen.",
     "recovery__dry_run_backup_not_on_this_device": "Wallet-Backup nicht auf diesem Gerät",
