@@ -115,10 +115,8 @@ class TrezorClient:
         from .transport.session import SessionV1
 
         if isinstance(self.protocol, ProtocolV1):
-            if passphrase is None:
-                passphrase = ""
             return SessionV1.new(self, passphrase, derive_cardano)
-        raise NotImplementedError  # TODO
+        raise NotImplementedError
 
     def resume_session(self, session: Session):
         """
