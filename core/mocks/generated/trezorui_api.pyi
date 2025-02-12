@@ -307,6 +307,16 @@ def continue_recovery_homepage(
 
 
 # rust/src/ui/api/firmware_micropython.rs
+def device_menu(
+    *,
+    failed_backup: bool,
+    low_battery: bool,
+    connections: str | None,
+) -> LayoutObj[int]:
+    """Show eckhart device menu."""
+
+
+# rust/src/ui/api/firmware_micropython.rs
 def flow_confirm_output(
     *,
     title: str | None,
@@ -631,7 +641,7 @@ def show_success(
     title: str,
     button: str,
     description: str = "",
-    allow_cancel: bool = True,
+    allow_cancel: bool = False,
     time_ms: int = 0,
 ) -> LayoutObj[UiResult]:
     """Success modal. No buttons shown when `button` is empty string."""

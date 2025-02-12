@@ -24,9 +24,14 @@ use crate::{
 };
 
 use super::{
-    component::{ActionBar, Button, Header, HeaderMsg, Hint, TextScreen},
+    component::{
+        ActionBar, Button, DeviceMenuScreen, Header, HeaderMsg, Hint, TextScreen, VerticalMenu,
+        VerticalMenuScreen, MENU_MAX_ITEMS,
+    },
     fonts, theme, UIEckhart,
 };
+
+use heapless::Vec;
 
 impl FirmwareUI for UIEckhart {
     fn confirm_action(
@@ -283,6 +288,89 @@ impl FirmwareUI for UIEckhart {
         _remaining_shares: Option<Obj>,
     ) -> Result<Gc<LayoutObj>, Error> {
         Err::<Gc<LayoutObj>, Error>(Error::ValueError(c"not implemented"))
+    }
+
+    fn device_menu(
+        failed_backup: bool,
+        low_battery: bool,
+        connections: TString<'static>,
+    ) -> Result<impl LayoutMaybeTrace, Error> {
+        let mut device_menu = DeviceMenuScreen::empty();
+
+        let settings_header = Header::new(TR::words__settings.into())
+            .with_right_button(Button::with_icon(theme::ICON_CROSS), HeaderMsg::Cancelled)
+            .with_left_button(Button::with_icon(theme::ICON_CHEVRON_LEFT), HeaderMsg::Back);
+        let settings_menu = VerticalMenu::empty()
+            .item(Button::with_menu_item(
+                TR::device_menu__language.into(),
+                None,
+            ))
+            .item(Button::with_menu_item(
+                TR::device_menu__bluetooth.into(),
+                None,
+            ))
+            .item(Button::with_menu_item(
+                TR::device_menu__brightness.into(),
+                None,
+            ))
+            .item(Button::with_menu_item(
+                TR::device_menu__fw_version.into(),
+                None,
+            ))
+            .item(Button::with_menu_item(TR::device_menu__about.into(), None))
+            .with_separators();
+        let settings_screen = VerticalMenuScreen::new(settings_menu).with_header(settings_header);
+        let setting_index = device_menu.add_leaf_menu(settings_screen);
+
+        let battery_color = if low_battery {
+            theme::YELLOW
+        } else {
+            theme::GREEN_LIME
+        };
+
+        let root_header = Header::new("".into())
+            .with_right_button(Button::with_icon(theme::ICON_CROSS), HeaderMsg::Cancelled)
+            .with_icon(theme::ICON_BATTERY_ZAP, battery_color);
+
+        let mut root_menu = VerticalMenu::empty().with_separators();
+        let mut root_children: Vec<Option<usize>, MENU_MAX_ITEMS> = Vec::new();
+
+        if failed_backup {
+            root_menu = root_menu.item_red(Button::with_menu_item(
+                TR::device_menu__backup_failed_title.into(),
+                Some(TR::device_menu__backup_failed_description.into()),
+            ));
+            root_children.push(None).unwrap();
+        }
+
+        if low_battery {
+            root_menu = root_menu.item_yellow(Button::with_menu_item(
+                TR::device_menu__battery_low_title.into(),
+                Some(TR::device_menu__battery_low_description.into()),
+            ));
+            root_children.push(None).unwrap();
+        }
+
+        root_menu = root_menu
+            .item(Button::with_menu_item(
+                TR::device_menu__connections_title.into(),
+                Some(connections),
+            ))
+            .item(Button::with_menu_item(TR::words__settings.into(), None));
+
+        root_children
+            .extend_from_slice(&[None, Some(setting_index)])
+            .unwrap();
+
+        let root_screen = VerticalMenuScreen::new(root_menu).with_header(root_header);
+        let root_index: usize = device_menu.add_inner_menu(root_screen, root_children);
+
+        // Set root menu as active
+        device_menu.set_active_menu(root_index);
+
+        let layout = RootComponent::new(device_menu);
+
+        Ok(layout)
     }
 
     fn flow_confirm_output(

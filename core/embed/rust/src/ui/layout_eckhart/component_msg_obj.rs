@@ -13,7 +13,10 @@ use crate::{
     },
 };
 
-use super::component::{AllowedTextContent, TextScreen, TextScreenMsg};
+use super::component::{
+    AllowedTextContent, DeviceMenuMsg, DeviceMenuScreen, TextScreen, TextScreenMsg,
+    VerticalMenuScreen, VerticalMenuScreenMsg,
+};
 
 // Clippy/compiler complains about conflicting implementations
 // TODO move the common impls to a common module
@@ -47,6 +50,25 @@ where
             TextScreenMsg::Cancelled => Ok(CANCELLED.as_obj()),
             TextScreenMsg::Confirmed => Ok(CONFIRMED.as_obj()),
             TextScreenMsg::Menu => Ok(INFO.as_obj()),
+        }
+    }
+}
+
+impl ComponentMsgObj for VerticalMenuScreen {
+    fn msg_try_into_obj(&self, msg: Self::Msg) -> Result<Obj, Error> {
+        match msg {
+            VerticalMenuScreenMsg::Back => Ok(CANCELLED.as_obj()),
+            VerticalMenuScreenMsg::Close => Ok(CANCELLED.as_obj()),
+            VerticalMenuScreenMsg::Selected(_) => Ok(CONFIRMED.as_obj()),
+        }
+    }
+}
+
+impl ComponentMsgObj for DeviceMenuScreen {
+    fn msg_try_into_obj(&self, msg: Self::Msg) -> Result<Obj, Error> {
+        match msg {
+            DeviceMenuMsg::Close => Ok(CANCELLED.as_obj()),
+            DeviceMenuMsg::Selected(_) => Ok(CONFIRMED.as_obj()),
         }
     }
 }

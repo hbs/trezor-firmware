@@ -973,5 +973,17 @@
   "971": "instructions__view_all_data",
   "972": "ethereum__interaction_contract",
   "973": "misc__enable_labeling",
-  "974": "ethereum__unknown_contract_address_short"
+  "974": "ethereum__unknown_contract_address_short",
+  "975": "device_menu__1_connection",
+  "976": "device_menu__about",
+  "977": "device_menu__active_connections",
+  "978": "device_menu__backup_failed_description",
+  "979": "device_menu__backup_failed_title",
+  "980": "device_menu__battery_low_description",
+  "981": "device_menu__battery_low_title",
+  "982": "device_menu__bluetooth",
+  "983": "device_menu__brightness",
+  "984": "device_menu__connections_title",
+  "985": "device_menu__fw_version",
+  "986": "device_menu__language"
 }
