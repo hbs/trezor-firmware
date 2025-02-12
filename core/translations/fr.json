@@ -609,7 +609,6 @@
     "reboot_to_bootloader__restart": "Trezor redémarrera en mode bootloader.",
     "reboot_to_bootloader__title": "Accéder bootloader",
     "reboot_to_bootloader__version_by_template": "Version du logiciel {0}\npar {1}",
-    "recovery__cancel_dry_run": "Annuler la vér. de la sauv.",
     "recovery__check_dry_run": "Vérifier votre sauvegarde ?",
     "recovery__cursor_will_change": "La position du curseur change entre les entrées pour plus de sécurité.",
     "recovery__dry_run_backup_not_on_this_device": "La sauvegarde du portefeuille n'est pas disponible sur ce dispositif",

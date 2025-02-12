@@ -565,7 +565,6 @@ class TR:
     reboot_to_bootloader__restart: str = "Trezor will restart in bootloader mode."
     reboot_to_bootloader__title: str = "Go to bootloader"
     reboot_to_bootloader__version_by_template: str = "Firmware version {0}\nby {1}"
-    recovery__cancel_dry_run: str = "Cancel backup check"
     recovery__check_dry_run: str = "Check your backup?"
     recovery__cursor_will_change: str = "Position of the cursor will change between entries for enhanced security."
     recovery__dry_run_backup_not_on_this_device: str = "Wallet backup not on this device"

@@ -780,7 +780,7 @@ pub enum TranslatedString {
     reboot_to_bootloader__restart = 492,  // "Trezor will restart in bootloader mode."
     reboot_to_bootloader__title = 493,  // "Go to bootloader"
     reboot_to_bootloader__version_by_template = 494,  // "Firmware version {0}\nby {1}"
-    recovery__cancel_dry_run = 495,  // "Cancel backup check"
+    recovery__cancel_dry_run = 495,  // "\"\""
     recovery__check_dry_run = 496,  // "Check your backup?"
     recovery__cursor_will_change = 497,  // "Position of the cursor will change between entries for enhanced security."
     recovery__dry_run_bip39_valid_match = 498,  // "The entered wallet backup is valid and matches the one in this device."
@@ -2158,7 +2158,7 @@ impl TranslatedString {
             Self::reboot_to_bootloader__restart => "Trezor will restart in bootloader mode.",
             Self::reboot_to_bootloader__title => "Go to bootloader",
             Self::reboot_to_bootloader__version_by_template => "Firmware version {0}\nby {1}",
-            Self::recovery__cancel_dry_run => "Cancel backup check",
+            Self::recovery__cancel_dry_run => "\"\"",
             Self::recovery__check_dry_run => "Check your backup?",
             Self::recovery__cursor_will_change => "Position of the cursor will change between entries for enhanced security.",
             Self::recovery__dry_run_bip39_valid_match => "The entered wallet backup is valid and matches the one in this device.",

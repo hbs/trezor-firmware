@@ -562,7 +562,6 @@
     "reboot_to_bootloader__restart": "Trezor önyükleyici modunda yeniden başlatılacak.",
     "reboot_to_bootloader__title": "Önyükleyi̇ci̇ye gi̇t",
     "reboot_to_bootloader__version_by_template": "Bellenim sürümü {0}\nşu şekilde: {1}",
-    "recovery__cancel_dry_run": "Yedekleme kontrolünü iptal et",
     "recovery__check_dry_run": "Yedeklemeniz kontrol edilsin mi?",
     "recovery__cursor_will_change": "Gelişmiş güvenlik için girişler arasında imlecin konumu değişecektir.",
     "recovery__dry_run_bip39_valid_match": "Girilen kurtarma tohumu geçerli ve cihazdakiyle uyumlu.",
