@@ -169,10 +169,7 @@ impl Component for VerticalMenuScreen {
     }
 
     fn render<'s>(&'s self, target: &mut impl Renderer<'s>) {
-        // Render the header
         self.header.render(target);
-
-        // Render the menu
         self.menu.render(target);
 
         // Render the down arrow if the menu  can be scrolled down
