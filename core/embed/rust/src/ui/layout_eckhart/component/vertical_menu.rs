@@ -1,15 +1,11 @@
-use crate::{
-    strutil::TString,
-    ui::{
-        component::{Component, Event, EventCtx},
-        display::Icon,
-        geometry::{Offset, Rect, Insets},
-        layout_eckhart::{
-            component::{button::IconText, Button, ButtonContent, ButtonMsg, ButtonStyleSheet},
-            theme,
-        },
-        shape::{Bar, Renderer},
+use crate::ui::{
+    component::{Component, Event, EventCtx},
+    geometry::{Insets, Offset, Rect},
+    layout_eckhart::{
+        component::{Button, ButtonContent, ButtonMsg},
+        theme,
     },
+    shape::{Bar, Renderer},
 };
 
 use heapless::Vec;
@@ -158,8 +154,10 @@ impl Component for VerticalMenu {
 
         // Calculate virtual bounds of all buttons combined
         let height = top_left.y - self.bounds.top_left().y;
-        self.virtual_bounds =
-            Rect::from_top_left_and_size(self.bounds.top_left(), Offset::new(self.bounds.width(), height));
+        self.virtual_bounds = Rect::from_top_left_and_size(
+            self.bounds.top_left(),
+            Offset::new(self.bounds.width(), height),
+        );
 
         // Calculate maximum offset for scrolling
         self.max_offset = (self.virtual_bounds.height() - self.bounds.height()).max(0);
