@@ -41,30 +41,30 @@ impl<'a> ShareWordsScreen<'a> {
     const WORD_Y_OFFSET: i16 = 76;
 
     pub fn new(share_words_vec: Vec<TString<'static>, 33>) -> Self {
+        let content = ShareWords::new(share_words_vec);
+
+        let mut action_bar = ActionBar::new_double(
+            Button::with_icon(theme::ICON_CHEVRON_UP),
+            Button::with_text(TR::buttons__continue.into()),
+        );
+        // Set action bar page counter
+        action_bar.update(content.pager());
+
+        let header = Header::new(TR::reset__recovery_wallet_backup_title.into())
+            .with_right_button(Button::with_icon(theme::ICON_MENU), HeaderMsg::Cancelled);
+
+        let hint = Hint::new_instruction(TR::share_words__first_word, Some(theme::ICON_INFO));
+
         Self {
-            header: Header::new(TString::empty()),
-            content: ShareWords::new(share_words_vec),
-            hint: None,
-            action_bar: ActionBar::new_single(Button::empty()),
+            content,
+            header,
+            hint: Some(hint),
+            action_bar,
             area: Rect::zero(),
         }
     }
 
-    pub fn with_header(mut self, header: Header) -> Self {
-        self.header = header;
-        self
-    }
-
-    pub fn with_hint(mut self, hint: Hint<'static>) -> Self {
-        self.hint = Some(hint);
-        self
-    }
-
-    pub fn with_action_bar(mut self, action_bar: ActionBar) -> Self {
-        self.action_bar = action_bar;
-        self
-    }
-
+    // Update hint and action bar content based on the current page
     fn on_page_change(&mut self) {
         // Update the hint based on the current page
         if self.content.pager().is_first() {

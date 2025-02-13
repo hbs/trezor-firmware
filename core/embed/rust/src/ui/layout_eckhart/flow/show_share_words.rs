@@ -11,8 +11,8 @@ use crate::{
         geometry::Direction,
         layout_eckhart::{
             component::{
-                ActionBar, Button, Header, HeaderMsg, Hint, ShareWordsScreen, ShareWordsScreenMsg,
-                TextScreen, TextScreenMsg,
+                ActionBar, Button, Header, ShareWordsScreen, ShareWordsScreenMsg, TextScreen,
+                TextScreenMsg,
             },
             fonts, theme,
         },
@@ -54,21 +54,11 @@ pub fn new_show_share_words_flow(
     words: Vec<TString<'static>, 33>,
     text_confirm: TString<'static>,
 ) -> Result<SwipeFlow, error::Error> {
-    let share_words = ShareWordsScreen::new(words)
-        .with_action_bar(ActionBar::new_double(
-            Button::with_icon(theme::ICON_CHEVRON_UP),
-            Button::with_text(TR::buttons__continue.into()),
-        ))
-        .with_hint(Hint::new_page_counter())
-        .with_header(
-            Header::new(TR::reset__recovery_wallet_backup_title.into())
-                .with_right_button(Button::with_icon(theme::ICON_MENU), HeaderMsg::Cancelled),
-        )
-        .map(|msg| match msg {
-            ShareWordsScreenMsg::Cancelled => Some(FlowMsg::Cancelled),
-            ShareWordsScreenMsg::Confirmed => Some(FlowMsg::Confirmed),
-            ShareWordsScreenMsg::Menu => todo!(),
-        });
+    let share_words = ShareWordsScreen::new(words).map(|msg| match msg {
+        ShareWordsScreenMsg::Cancelled => Some(FlowMsg::Cancelled),
+        ShareWordsScreenMsg::Confirmed => Some(FlowMsg::Confirmed),
+        ShareWordsScreenMsg::Menu => todo!(),
+    });
 
     let op_confirm =
         OpTextLayout::new(theme::TEXT_NORMAL).text(text_confirm, fonts::FONT_SATOSHI_REGULAR_38);
