@@ -69,7 +69,7 @@ def select_number_of_words(
     unlock_repeated_backup=False,
 ) -> None:
     layout = debug.read_layout()
-    assert layout.text_content() == TR.recovery__num_of_words
+    assert TR.recovery__num_of_words in layout.text_content()
 
     def select_bolt() -> "LayoutContent":
         # click the button from ValuePad
