@@ -7,7 +7,6 @@ mod hint;
 mod result;
 mod select_word_screen;
 mod share_words;
-mod share_words_screen;
 mod text_screen;
 mod vertical_menu_page;
 mod welcome_screen;
@@ -20,8 +19,7 @@ pub use hint::Hint;
 pub use result::{ResultFooter, ResultScreen, ResultStyle};
 pub use select_word_screen::{SelectWordMsg, SelectWordScreen};
 #[cfg(feature = "translations")]
-pub use share_words::ShareWords;
-pub use share_words_screen::{ShareWordsScreen, ShareWordsScreenMsg};
+pub use share_words::{ShareWordsScreen, ShareWordsScreenMsg};
 pub use text_screen::{AllowedTextContent, TextScreen, TextScreenMsg};
 pub use vertical_menu_page::VerticalMenuPage;
 pub use welcome_screen::WelcomeScreen;
