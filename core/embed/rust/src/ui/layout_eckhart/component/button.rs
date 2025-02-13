@@ -265,20 +265,14 @@ impl Button {
                 });
                 // Render subtitle if available
                 if let Some(subtitle) = subtitle {
-                    let styles = theme::menu_item_subtitle();
-                    let style = match self.state {
-                        State::Initial | State::Released => styles.normal,
-                        State::Pressed => styles.active,
-                        State::Disabled => styles.disabled,
-                    };
+                    let style = theme::label_menu_item_subtitle();
 
-                    let y_offset = Offset::y(
-                        styles.active.font.allcase_text_height() + Self::MENU_LINE_SPACING,
-                    );
+                    let y_offset =
+                        Offset::y(style.text_font.allcase_text_height() + Self::MENU_LINE_SPACING);
 
                     start_of_baseline = start_of_baseline + y_offset;
                     subtitle.map(|subtitle| {
-                        shape::Text::new(start_of_baseline, subtitle, styles.active.font)
+                        shape::Text::new(start_of_baseline, subtitle, style.text_font)
                             .with_fg(style.text_color)
                             .with_align(Alignment::Start)
                             .with_alpha(alpha)
