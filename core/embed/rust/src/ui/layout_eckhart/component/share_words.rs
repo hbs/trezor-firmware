@@ -169,10 +169,7 @@ impl<'a> Component for ShareWordsScreen<'a> {
     fn render<'s>(&'s self, target: &mut impl Renderer<'s>) {
         self.header.render(target);
         self.content.render(target);
-
-        if let Some(hint) = &self.hint {
-            hint.render(target);
-        }
+        self.hint.render(target);
         self.action_bar.render(target);
     }
 }
