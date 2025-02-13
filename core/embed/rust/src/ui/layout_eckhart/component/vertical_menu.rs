@@ -116,16 +116,16 @@ impl VerticalMenu {
 
     fn calculate_button_height(button: &Button) -> i16 {
         match button.content() {
-            ButtonContent::MenuItem(_, description) => {
-                let title_height = theme::menu_item_title().active.font.allcase_text_height();
+            ButtonContent::MenuItem(_, subtext) => {
+                let text_height = theme::menu_item_title().active.font.allcase_text_height();
                 let base_offset = 2 * Button::MENU_Y_BASE_OFFSET;
-                if description.is_some() {
-                    let subtitle_height = theme::label_menu_item_subtitle()
+                if subtext.is_some() {
+                    let subttext_height = theme::label_menu_item_subtitle()
                         .text_font
                         .allcase_text_height();
-                    title_height + subtitle_height + Button::MENU_LINE_SPACING + base_offset
+                    text_height + subttext_height + Button::MENU_LINE_SPACING + base_offset
                 } else {
-                    title_height + base_offset
+                    text_height + base_offset
                 }
             }
             _ => panic!("Unexpected button content: expected MenuItem"),
