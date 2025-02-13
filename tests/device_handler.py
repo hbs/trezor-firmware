@@ -50,7 +50,6 @@ class BackgroundDeviceHandler:
         self.client = client
         self.client.ui = NullUI  # type: ignore [NullUI is OK UI]
         self.client.watch_layout(True)
-        self.client.debug.input_wait_type = DebugWaitType.CURRENT_LAYOUT
 
     def run_with_session(
         self,
