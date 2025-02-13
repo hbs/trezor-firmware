@@ -59,11 +59,8 @@ impl Button {
         Self::new(ButtonContent::Text(text))
     }
 
-    pub const fn with_menu_item(
-        title: TString<'static>,
-        subtitle: Option<TString<'static>>,
-    ) -> Self {
-        Self::new(ButtonContent::MenuItem(title, subtitle))
+    pub const fn with_menu_item(text: TString<'static>, subtext: Option<TString<'static>>) -> Self {
+        Self::new(ButtonContent::MenuItem(text, subtext))
     }
 
     pub const fn with_icon(icon: Icon) -> Self {
@@ -249,29 +246,29 @@ impl Button {
                     alpha,
                 );
             }
-            ButtonContent::MenuItem(title, subtitle) => {
+            ButtonContent::MenuItem(text, subtext) => {
                 let y_offset =
                     Offset::y(Self::MENU_Y_BASE_OFFSET + self.style().font.allcase_text_height());
 
                 let mut start_of_baseline =
                     self.area.top_left() + Offset::x(Self::BASELINE_OFFSET.x) + y_offset;
 
-                title.map(|title| {
-                    shape::Text::new(start_of_baseline, title, style.font)
+                text.map(|text| {
+                    shape::Text::new(start_of_baseline, text, style.font)
                         .with_fg(style.text_color)
                         .with_align(Alignment::Start)
                         .with_alpha(alpha)
                         .render(target);
                 });
-                // Render subtitle if available
-                if let Some(subtitle) = subtitle {
+                // Render subttext if available
+                if let Some(subtext) = subtext {
                     let style = theme::label_menu_item_subtitle();
 
                     let y_offset =
                         Offset::y(style.text_font.allcase_text_height() + Self::MENU_LINE_SPACING);
 
                     start_of_baseline = start_of_baseline + y_offset;
-                    subtitle.map(|subtitle| {
+                    subtext.map(|subtitle| {
                         shape::Text::new(start_of_baseline, subtitle, style.text_font)
                             .with_fg(style.text_color)
                             .with_align(Alignment::Start)
@@ -416,8 +413,8 @@ impl crate::trace::Trace for Button {
                 t.string("text", content.text);
                 t.bool("icon", true);
             }
-            ButtonContent::MenuItem(title, _) => {
-                t.string("title", *title);
+            ButtonContent::MenuItem(text, _) => {
+                t.string("text", *text);
             }
         }
     }
