@@ -2,9 +2,11 @@ use crate::{
     strutil::TString,
     translations::TR,
     ui::{
-        component::{swipe_detect::SwipeConfig, Component, Event, EventCtx, Never, PaginateFull},
+        component::{
+            swipe_detect::SwipeConfig, Component, Event, EventCtx, Never, PaginateFull, Swipe,
+        },
         flow::Swipable,
-        geometry::{Alignment, Offset, Rect},
+        geometry::{Alignment, Direction, Offset, Rect},
         layout_eckhart::{
             component::{button::Button, ActionBar, ActionBarMsg, Header, HeaderMsg, Hint},
             fonts, theme,
@@ -27,6 +29,8 @@ pub struct ShareWordsScreen<'a> {
     action_bar: ActionBar,
     /// Common area for the content and hint
     area: Rect,
+    page_swipe: Swipe,
+    swipe_config: SwipeConfig,
 }
 
 pub enum ShareWordsScreenMsg {
@@ -61,30 +65,49 @@ impl<'a> ShareWordsScreen<'a> {
             hint: Some(hint),
             action_bar,
             area: Rect::zero(),
+            page_swipe: Swipe::vertical(),
+            swipe_config: SwipeConfig::new(),
         }
     }
 
-    // Update hint and action bar content based on the current page
-    fn on_page_change(&mut self) {
-        // Update the hint based on the current page
+    fn on_page_change(&mut self, direction: Direction) {
+        // Update page based on the direction
+
+        match direction {
+            Direction::Up => {
+                self.content.change_page(self.content.pager().next());
+            }
+            Direction::Down => {
+                self.content.change_page(self.content.pager().prev());
+            }
+            _ => {}
+        }
+
+        // Update action bar content based on the current page
+        self.action_bar.update(self.content.pager());
+
+        // Update hint content based on the current page
+
+        // First word gets a special hint
         if self.content.pager().is_first() {
             self.hint = Some(Hint::new_instruction(
                 TR::share_words__first_word,
                 Some(theme::ICON_INFO),
             ));
+        // Repeated words get a special hint
         } else if self.content.is_repeated() {
             self.hint = Some(Hint::new_instruction_green(
                 TR::share_words__word_multiple_times,
                 Some(theme::ICON_INFO),
             ));
+        // Other words get a page counter hint
         } else {
             let mut hint = Hint::new_page_counter();
             hint.update(self.content.pager());
             self.hint = Some(hint);
         }
 
-        self.action_bar.update(self.content.pager());
-
+        // use place function because the hint height is floating based on its content
         self.place(self.area);
     }
 }
@@ -131,8 +154,11 @@ impl<'a> Component for ShareWordsScreen<'a> {
     }
 
     fn event(&mut self, ctx: &mut EventCtx, event: Event) -> Option<Self::Msg> {
-        if let Event::Attach(_) = event {
-            self.on_page_change();
+        if let Some(swipe) = self.page_swipe.event(ctx, event) {
+            // We have detected a vertical swipe. Change the keyboard page.
+            self.on_page_change(swipe);
+            ctx.request_paint();
+            return None;
         }
 
         if let Some(msg) = self.header.event(ctx, event) {
@@ -151,13 +177,11 @@ impl<'a> Component for ShareWordsScreen<'a> {
                     return Some(ShareWordsScreenMsg::Confirmed);
                 }
                 ActionBarMsg::Prev => {
-                    self.content.change_page(self.content.pager().prev());
-                    self.on_page_change();
+                    self.on_page_change(Direction::Down);
                     return None;
                 }
                 ActionBarMsg::Next => {
-                    self.content.change_page(self.content.pager().next());
-                    self.on_page_change();
+                    self.on_page_change(Direction::Up);
                     return None;
                 }
             }
