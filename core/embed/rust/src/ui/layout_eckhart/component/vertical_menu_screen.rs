@@ -9,7 +9,7 @@ use crate::{
         event::{SwipeEvent, TouchEvent},
         geometry::{Alignment2D, Direction, Insets, Offset, Rect},
         layout_eckhart::{
-            component::{constant, Header, HeaderMsg, VerticalMenu, VerticalMenuMsg},
+            component::{constant::screen, Header, HeaderMsg, VerticalMenu, VerticalMenuMsg},
             theme,
         },
         shape::{Renderer, ToifImage},
@@ -90,8 +90,8 @@ impl Component for VerticalMenuScreen {
 
     fn place(&mut self, bounds: Rect) -> Rect {
         // assert full screen
-        debug_assert_eq!(bounds.height(), constant::HEIGHT);
-        debug_assert_eq!(bounds.width(), constant::WIDTH);
+        debug_assert_eq!(bounds.height(), screen().height());
+        debug_assert_eq!(bounds.width(), screen().width());
 
         let (header_area, mut menu_area) = bounds.split_top(Header::HEADER_HEIGHT);
 
