@@ -65,9 +65,7 @@ impl VerticalMenu {
     }
 
     pub fn item(mut self, button: Button) -> Self {
-        unwrap!(self
-            .buttons
-            .push(button.styled(theme::menu_item_title())));
+        unwrap!(self.buttons.push(button.styled(theme::menu_item_title())));
         self
     }
 
@@ -79,7 +77,9 @@ impl VerticalMenu {
     }
 
     pub fn item_red(mut self, button: Button) -> Self {
-        unwrap!(self.buttons.push(button.styled(theme::menu_item_title_red())));
+        unwrap!(self
+            .buttons
+            .push(button.styled(theme::menu_item_title_red())));
         self
     }
 
@@ -117,10 +117,7 @@ impl VerticalMenu {
     fn calculate_button_height(button: &Button) -> i16 {
         match button.content() {
             ButtonContent::MenuItem(_, description) => {
-                let title_height = theme::menu_item_title()
-                    .active
-                    .font
-                    .allcase_text_height();
+                let title_height = theme::menu_item_title().active.font.allcase_text_height();
                 let base_offset = 2 * Button::MENU_Y_BASE_OFFSET;
                 if description.is_some() {
                     let subtitle_height = theme::label_menu_item_subtitle()
