@@ -83,27 +83,10 @@ impl<'a> ShareWordsScreen<'a> {
             self.hint = Some(hint);
         }
 
-        // if let Some(hint) = &mut self.hint {
-        //     let (content_area, hint_area) =
-        // self.area.split_bottom(Hint::HEIGHT_DEFAULT);
-        //     hint.place(hint_area);
-        //     self.content.place(content_area);
-        // }
-
         self.action_bar.update(self.content.pager());
 
         self.place(self.area);
     }
-
-    // fn snap_rect_centered_lr(bounds: Rect, width: i16, height: i16, top_offset:
-    // i16) -> Rect {     assert!(bounds.width() >= width);
-    //     assert!(bounds.height() >= height + top_offset);
-
-    //     let top_left = bounds
-    //         .top_left()
-    //         .ofs(Offset::new((bounds.width() - width) / 2, top_offset));
-    //     Rect::from_top_left_and_size(top_left, Offset::new(width, height))
-    // }
 }
 
 impl<'a> Swipable for ShareWordsScreen<'a> {
@@ -123,7 +106,6 @@ impl<'a> Component for ShareWordsScreen<'a> {
         let (header_area, rest) = bounds.split_top(Header::HEADER_HEIGHT);
         let (rest, action_bar_area) = rest.split_bottom(ActionBar::ACTION_BAR_HEIGHT);
         let content_area = if let Some(hint) = &mut self.hint {
-            // TODO: hint area based on text
             let (rest, hint_area) = rest.split_bottom(hint.height());
             hint.place(hint_area);
             rest
@@ -169,7 +151,6 @@ impl<'a> Component for ShareWordsScreen<'a> {
                     return Some(ShareWordsScreenMsg::Confirmed);
                 }
                 ActionBarMsg::Prev => {
-                    // self.page_idx = (self.page_idx - 1).max(0);
                     self.content.change_page(self.content.pager().prev());
                     self.on_page_change();
                     return None;
