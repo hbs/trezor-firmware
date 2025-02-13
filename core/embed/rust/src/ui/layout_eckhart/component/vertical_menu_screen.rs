@@ -7,7 +7,7 @@ use crate::{
             Component, Event, EventCtx, SwipeDetect,
         },
         event::{SwipeEvent, TouchEvent},
-        geometry::{Alignment2D, Direction, Insets, Offset, Rect},
+        geometry::{Alignment2D, Direction, Offset, Rect},
         layout_eckhart::{
             component::{constant::screen, Header, HeaderMsg, VerticalMenu, VerticalMenuMsg},
             theme,
@@ -37,8 +37,6 @@ pub enum VerticalMenuScreenMsg {
 }
 
 impl VerticalMenuScreen {
-    const VERTICAL_MENU_SIDE_INSET: i16 = 24;
-
     pub fn new(menu: VerticalMenu) -> Self {
         Self {
             header: Header::new(TString::empty()),
@@ -93,10 +91,7 @@ impl Component for VerticalMenuScreen {
         debug_assert_eq!(bounds.height(), screen().height());
         debug_assert_eq!(bounds.width(), screen().width());
 
-        let (header_area, mut menu_area) = bounds.split_top(Header::HEADER_HEIGHT);
-
-        // Crop the menu area
-        menu_area = menu_area.inset(Insets::sides(Self::VERTICAL_MENU_SIDE_INSET));
+        let (header_area, menu_area) = bounds.split_top(Header::HEADER_HEIGHT);
 
         self.menu.place(menu_area);
         self.header.place(header_area);

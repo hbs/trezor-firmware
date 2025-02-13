@@ -3,7 +3,7 @@ use crate::{
     ui::{
         component::{Component, Event, EventCtx},
         display::Icon,
-        geometry::{Offset, Rect},
+        geometry::{Offset, Rect, Insets},
         layout_eckhart::{
             component::{button::IconText, Button, ButtonContent, ButtonMsg, ButtonStyleSheet},
             theme,
@@ -44,6 +44,8 @@ pub enum VerticalMenuMsg {
 }
 
 impl VerticalMenu {
+    const SIDE_INSET: i16 = 24;
+
     fn new(buttons: VerticalMenuButtons) -> Self {
         Self {
             virtual_bounds: Rect::zero(),
@@ -137,9 +139,11 @@ impl Component for VerticalMenu {
     type Msg = VerticalMenuMsg;
 
     fn place(&mut self, bounds: Rect) -> Rect {
-        self.bounds = bounds;
-        let button_width = bounds.width();
-        let mut top_left = bounds.top_left();
+        // Crop the menu area
+        self.bounds = bounds.inset(Insets::sides(Self::SIDE_INSET));
+
+        let button_width = self.bounds.width();
+        let mut top_left = self.bounds.top_left();
 
         for button in self.buttons.iter_mut() {
             let button_height = Self::calculate_button_height(button);
@@ -153,9 +157,9 @@ impl Component for VerticalMenu {
         }
 
         // Calculate virtual bounds of all buttons combined
-        let height = top_left.y - bounds.top_left().y;
+        let height = top_left.y - self.bounds.top_left().y;
         self.virtual_bounds =
-            Rect::from_top_left_and_size(bounds.top_left(), Offset::new(bounds.width(), height));
+            Rect::from_top_left_and_size(self.bounds.top_left(), Offset::new(self.bounds.width(), height));
 
         // Calculate maximum offset for scrolling
         self.max_offset = (self.virtual_bounds.height() - self.bounds.height()).max(0);
