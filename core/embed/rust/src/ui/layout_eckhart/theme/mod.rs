@@ -152,6 +152,10 @@ pub const fn label_title_main() -> TextStyle {
     TEXT_SMALL
 }
 
+pub const fn label_menu_item_subtitle() -> TextStyle {
+    TextStyle::new(fonts::FONT_SATOSHI_REGULAR_22, GREY, BG, GREY, GREY)
+}
+
 // Button styles
 pub const fn button_default() -> ButtonStyleSheet {
     ButtonStyleSheet {
@@ -296,32 +300,6 @@ pub const fn menu_item_title_yellow() -> ButtonStyleSheet {
 
 pub const fn menu_item_title_red() -> ButtonStyleSheet {
     menu_item_title!(RED)
-}
-
-pub const fn menu_item_subtitle() -> ButtonStyleSheet {
-    ButtonStyleSheet {
-        normal: &ButtonStyle {
-            font: fonts::FONT_SATOSHI_REGULAR_22,
-            text_color: GREY,
-            button_color: BG,
-            icon_color: GREY,
-            background_color: BG,
-        },
-        active: &ButtonStyle {
-            font: fonts::FONT_SATOSHI_REGULAR_22,
-            text_color: GREY,
-            button_color: BG,
-            icon_color: GREY,
-            background_color: BG,
-        },
-        disabled: &ButtonStyle {
-            font: fonts::FONT_SATOSHI_REGULAR_22,
-            text_color: GREY_DARK,
-            button_color: BG,
-            icon_color: GREY_DARK,
-            background_color: BG,
-        },
-    }
 }
 
 // Result  constants
