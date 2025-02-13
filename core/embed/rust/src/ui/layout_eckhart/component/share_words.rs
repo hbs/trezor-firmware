@@ -57,7 +57,7 @@ impl<'a> ShareWordsScreen<'a> {
         let header = Header::new(TR::reset__recovery_wallet_backup_title.into())
             .with_right_button(Button::with_icon(theme::ICON_MENU), HeaderMsg::Cancelled);
 
-        let hint = Hint::new_instruction(TR::share_words__first_word, Some(theme::ICON_INFO));
+        let hint = Hint::new_instruction(TR::reset__share_words_first, Some(theme::ICON_INFO));
 
         Self {
             content,
@@ -91,13 +91,13 @@ impl<'a> ShareWordsScreen<'a> {
         // First word gets a special hint
         if self.content.pager().is_first() {
             self.hint = Some(Hint::new_instruction(
-                TR::share_words__first_word,
+                TR::reset__share_words_first,
                 Some(theme::ICON_INFO),
             ));
         // Repeated words get a special hint
         } else if self.content.is_repeated() {
             self.hint = Some(Hint::new_instruction_green(
-                TR::share_words__word_multiple_times,
+                TR::reset__the_word_is_repeated,
                 Some(theme::ICON_INFO),
             ));
         // Other words get a page counter hint

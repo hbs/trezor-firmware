@@ -1339,7 +1339,7 @@ pub enum TranslatedString {
     reset__repeat_for_all_shares = 938,  // "Repeat for all shares."
     homescreen__settings_subtitle = 939,  // "Settings"
     homescreen__settings_title = 940,  // "Homescreen"
-    reset__the_word_is_repeated = 941,  // "The word is repeated"
+    reset__the_word_is_repeated = 941,  // {"Bolt": "The word is repeated", "Caesar": "The word is repeated", "Delizia": "The word is repeated", "Eckhart": "The word appears multiple times in the backup."}
     tutorial__title_lets_begin = 942,  // "Let's begin"
     tutorial__did_you_know = 943,  // "Did you know?"
     tutorial__first_wallet = 944,  // "The Trezor Model One, created in 2013,\nwas the world's first hardware wallet."
@@ -1382,8 +1382,9 @@ pub enum TranslatedString {
     misc__enable_labeling = 973,  // "Enable labeling?"
     #[cfg(feature = "universal_fw")]
     ethereum__unknown_contract_address_short = 974,  // "Unknown contract address."
-    share_words__first_word = 975,  // "Write down the first word from the backup."
-    share_words__word_multiple_times = 976,  // "The word appears multiple times in the backup."
+    share_words__first_word = 975,  // "\"\""
+    share_words__word_multiple_times = 976,  // "\"\""
+    reset__share_words_first = 977,  // "Write down the first word from the backup."
 }
 
 impl TranslatedString {
@@ -2719,7 +2720,14 @@ impl TranslatedString {
             Self::reset__repeat_for_all_shares => "Repeat for all shares.",
             Self::homescreen__settings_subtitle => "Settings",
             Self::homescreen__settings_title => "Homescreen",
+            #[cfg(feature = "layout_bolt")]
             Self::reset__the_word_is_repeated => "The word is repeated",
+            #[cfg(feature = "layout_caesar")]
+            Self::reset__the_word_is_repeated => "The word is repeated",
+            #[cfg(feature = "layout_delizia")]
+            Self::reset__the_word_is_repeated => "The word is repeated",
+            #[cfg(feature = "layout_eckhart")]
+            Self::reset__the_word_is_repeated => "The word appears multiple times in the backup.",
             Self::tutorial__title_lets_begin => "Let's begin",
             Self::tutorial__did_you_know => "Did you know?",
             Self::tutorial__first_wallet => "The Trezor Model One, created in 2013,\nwas the world's first hardware wallet.",
@@ -2762,8 +2770,9 @@ impl TranslatedString {
             Self::misc__enable_labeling => "Enable labeling?",
             #[cfg(feature = "universal_fw")]
             Self::ethereum__unknown_contract_address_short => "Unknown contract address.",
-            Self::share_words__first_word => "Write down the first word from the backup.",
-            Self::share_words__word_multiple_times => "The word appears multiple times in the backup.",
+            Self::share_words__first_word => "\"\"",
+            Self::share_words__word_multiple_times => "\"\"",
+            Self::reset__share_words_first => "Write down the first word from the backup.",
         }
     }
 
@@ -4143,6 +4152,7 @@ impl TranslatedString {
             Qstr::MP_QSTR_ethereum__unknown_contract_address_short => Some(Self::ethereum__unknown_contract_address_short),
             Qstr::MP_QSTR_share_words__first_word => Some(Self::share_words__first_word),
             Qstr::MP_QSTR_share_words__word_multiple_times => Some(Self::share_words__word_multiple_times),
+            Qstr::MP_QSTR_reset__share_words_first => Some(Self::reset__share_words_first),
             _ => None,
         }
     }

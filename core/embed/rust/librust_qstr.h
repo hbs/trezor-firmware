@@ -531,6 +531,7 @@ static void _librust_qstrs(void) {
   MP_QSTR_reset__set_it_to_count_template;
   MP_QSTR_reset__share_checked_successfully_template;
   MP_QSTR_reset__share_completed_template;
+  MP_QSTR_reset__share_words_first;
   MP_QSTR_reset__share_words_title;
   MP_QSTR_reset__slip39_checklist_more_info_threshold;
   MP_QSTR_reset__slip39_checklist_more_info_threshold_example_template;
