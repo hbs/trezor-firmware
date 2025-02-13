@@ -123,9 +123,8 @@ impl VerticalMenu {
                     .allcase_text_height();
                 let base_offset = 2 * Button::MENU_Y_BASE_OFFSET;
                 if description.is_some() {
-                    let subtitle_height = theme::menu_item_subtitle()
-                        .active
-                        .font
+                    let subtitle_height = theme::label_menu_item_subtitle()
+                        .text_font
                         .allcase_text_height();
                     title_height + subtitle_height + Button::MENU_LINE_SPACING + base_offset
                 } else {
