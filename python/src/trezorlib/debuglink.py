@@ -1310,7 +1310,7 @@ class TrezorClientDebugLink(TrezorClient):
                 msg = messages.PassphraseAck(passphrase=passphrase, on_device=on_device)
                 resp = session.call_raw(msg)
                 if isinstance(resp, messages.Deprecated_PassphraseStateRequest):
-                    # session.session_id = resp.state
+                    session._session.id = resp.state
                     resp = session.call_raw(messages.Deprecated_PassphraseStateAck())
                 return resp
 
